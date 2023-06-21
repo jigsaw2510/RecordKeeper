@@ -2,6 +2,7 @@ package com.example.recordkeeper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.commit
 import com.example.recordkeeper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -11,14 +12,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+        
+
+        binding.buttonCycling.setOnClickListener { onCyclingClicked() }
+        binding.buttonRunning.setOnClickListener { onRunningClicked() }
+
     }
 
-    fun checkBinding() {
+    private fun onRunningClicked() {
+        supportFragmentManager.commit {
+            replace(R.id.frame_content, RunningFragment())
+        }
+    }
 
-        binding.frameContent
-        binding.bottomNav
-
+    private fun onCyclingClicked() {
+        supportFragmentManager.commit {
+            replace(R.id.frame_content, CyclingFragment())
+        }
     }
 }
